@@ -141,7 +141,7 @@
 
     <script>
         // ⚠️ ضع رابط سكربت جوجل هنا ⚠️
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwS_UWUcu-d7RPu9r0fqRnIowYozxsPJy7ZlrkQ3ZO_RIXYPGeBkGMJMd44fxHImHUm/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzxi8iBfq-VOyBPy9NaBR7BLD8nV3GhxSgOmGiMxg4ANJfJBNqsZ924b7tx6EP59QLZ/exec';
 
         const form = document.getElementById('uploadForm');
         const fileInput = document.getElementById('fileInput');
@@ -162,7 +162,7 @@
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            if (GOOGLE_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwS_UWUcu-d7RPu9r0fqRnIowYozxsPJy7ZlrkQ3ZO_RIXYPGeBkGMJMd44fxHImHUm/exec') {
+            if (GOOGLE_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzxi8iBfq-VOyBPy9NaBR7BLD8nV3GhxSgOmGiMxg4ANJfJBNqsZ924b7tx6EP59QLZ/exec') {
                 showStatus('⚠️ يرجى وضع رابط Google Apps Script في الكود أولاً!', 'error');
                 return;
             }
