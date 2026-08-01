@@ -58,6 +58,19 @@
 
         <form id="uploadForm" class="space-y-6">
             
+            <!-- إضافة حقل الاسم هنا -->
+            <div class="space-y-2">
+                <label class="block text-slate-700 font-bold text-sm">الاسم (ثلاثي)</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    </div>
+                    <input type="text" id="participantName" required
+                        class="w-full pr-10 pl-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white text-slate-700"
+                        placeholder="اكتب اسمك الثلاثي هنا">
+                </div>
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div class="space-y-2">
                     <label class="block text-slate-700 font-bold text-sm">اسم الكنيسة</label>
@@ -127,7 +140,7 @@
 
     <script>
         // ⚠️ ضع رابط سكربت جوجل هنا ⚠️
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytt40cRRxz5WSrG0RD3m4kzmyLqRuPYUQI7JPOI-JQH6ChfcFOdVC3iR1NoVh76QPC/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwOF1DF_H_KxUViHcd-oOmAynUPonNYGdzRK3rK0gvwwF8A8wlaNCezbBhDW-JOYgGg/exec';
 
         const form = document.getElementById('uploadForm');
         const fileInput = document.getElementById('fileInput');
@@ -154,6 +167,7 @@
             }
 
             const file = fileInput.files[0];
+            const participantName = document.getElementById('participantName').value;
             const churchName = document.getElementById('churchName').value;
             const phoneNumber = document.getElementById('phoneNumber').value;
             const competition = document.getElementById('competition').value;
@@ -173,6 +187,7 @@
                 const base64Data = reader.result.split(',')[1];
                 
                 const payload = {
+                    participantName: participantName,
                     churchName: churchName,
                     phoneNumber: phoneNumber,
                     competition: competition,
