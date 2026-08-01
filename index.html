@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة تسليم المشاريع</title>
+    <!-- استخدام Tailwind CSS للتصميم السريع والشيك -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            min-height: 100vh;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ff7e5f;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">بوابة تسليم المشاريع</h1>
+            <p class="text-gray-500">اختر المسابقة وقم برفع ملفك النهائي هنا</p>
+        </div>
+
+        <form id="uploadForm" class="space-y-5">
+            
+            <!-- اسم المتسابق -->
+            <div>
+                <label class="block text-gray-700 font-semibold mb-2">اسم المتسابق (أو الفريق)</label>
+                <input type="text" id="userName" required
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
+                    placeholder="اكتب اسمك الثلاثي">
+            </div>
+
+            <!-- اختيار المسابقة -->
+            <div>
+                <label class="block text-gray-700 font-semibold mb-2">المسابقة</label>
+                <select id="competition" required
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition bg-white">
+                    <option value="" disabled selected>-- اختر المسابقة --</option>
+                    <option value="comp1">المسابقة الالكترونية</option>
+                    <option value="comp2">المسابقة  الثقافية</option>
+                    <option value="comp3">المسابقة الادبية </option>
+                </select>
+            </div>
+
+            <!-- رفع الملف -->
+            <div>
+                <label class="block text-gray-700 font-semibold mb-2">ملف المشروع</label>
+                <div class="flex items-center justify-center w-full">
+                    <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <svg class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                            </svg>
+                            <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">اضغط لرفع الملف</span> أو اسحبه هنا</p>
+                            <p class="text-xs text-gray-500" id="fileNameDisplay">الحد الأقصى (يفضل أقل من 50MB لضمان السرعة)</p>
+                        </div>
+                        <input id="fileInput" type="file" class="hidden" required />
+                    </label>
+                </div>
+            </div>
+
+            <!-- زر الإرسال -->
+            <button type="submit" id="submitBtn"
+                class="w-full bg-gradient-to-r from-orange-400 to-red-500 text-white font-bold py-3 px-4 rounded-lg hover:from-orange-500 hover:to-red-600 focus:outline-none focus:ring-4 focus:ring-orange-300 transition-all flex justify-center items-center gap-2">
+                <span>إرسال الملف</span>
+            </button>
+
+            <!-- رسائل الحالة -->
+            <div id="statusMessage" class="hidden text-center font-bold py-2 rounded-lg"></div>
+
+        </form>
+    </div>
+
+    <script>
+        // رابط الـ Web App اللي هنجيبه من Google Apps Script (هنحطه هنا بعدين)
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyk9-vMOuIH7lJVH50u4CAbnjJBlVg33B84i4sV51ifcovvqnnoQiCDmxCo3fxlwWXg/exec';
+
+        const form = document.getElementById('uploadForm');
+        const fileInput = document.getElementById('fileInput');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        const submitBtn = document.getElementById('submitBtn');
+        const statusMessage = document.getElementById('statusMessage');
+
+        // عرض اسم الملف عند اختياره
+        fileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                fileNameDisplay.textContent = e.target.files[0].name;
+                fileNameDisplay.classList.add('text-orange-500', 'font-bold');
+            }
+        });
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            if (GOOGLE_SCRIPT_URL === 'ضع_رابط_سكربت_جوجل_هنا') {
+                showStatus('يرجى وضع رابط Google Apps Script في الكود أولاً!', 'error');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const userName = document.getElementById('userName').value;
+            const competition = document.getElementById('competition').value;
+
+            if (!file) return;
+
+            // تغيير حالة الزر أثناء التحميل
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="loader"></div> <span class="mr-2">جاري الرفع... يرجى الانتظار</span>';
+            hideStatus();
+
+            // قراءة الملف وتحويله إلى Base64
+            const reader = new FileReader();
+            reader.onload = async function() {
+                const base64Data = reader.result.split(',')[1];
+                
+                const payload = {
+                    name: userName,
+                    competition: competition,
+                    fileName: file.name,
+                    mimeType: file.type,
+                    fileData: base64Data
+                };
+
+                try {
+                    // إرسال البيانات إلى جوجل
+                    const response = await fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        // نستخدم text/plain لتجنب مشاكل الـ CORS مع جوجل
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+                    
+                    if(result.status === 'success') {
+                        showStatus('تم رفع الملف بنجاح! شكراً لك.', 'success');
+                        form.reset();
+                        fileNameDisplay.textContent = 'الحد الأقصى (يفضل أقل من 50MB لضمان السرعة)';
+                        fileNameDisplay.classList.remove('text-orange-500', 'font-bold');
+                    } else {
+                        showStatus('حدث خطأ أثناء الرفع، حاول مرة أخرى.', 'error');
+                    }
+                } catch (error) {
+                    showStatus('حدث خطأ في الاتصال بالخادم.', 'error');
+                    console.error(error);
+                } finally {
+                    // إعادة الزر لحالته الطبيعية
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span>إرسال الملف</span>';
+                }
+            };
+            
+            // بدء قراءة الملف
+            reader.readAsDataURL(file);
+        });
+
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.classList.remove('hidden', 'bg-green-100', 'text-green-700', 'bg-red-100', 'text-red-700');
+            if(type === 'success') {
+                statusMessage.classList.add('bg-green-100', 'text-green-700');
+            } else {
+                statusMessage.classList.add('bg-red-100', 'text-red-700');
+            }
+            statusMessage.classList.add('block');
+        }
+
+        function hideStatus() {
+            statusMessage.classList.add('hidden');
+            statusMessage.classList.remove('block');
+        }
+    </script>
+</body>
+</html>
