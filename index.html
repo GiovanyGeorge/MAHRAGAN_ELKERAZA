@@ -48,10 +48,10 @@
         
         <div class="text-center mb-10">
             <!-- ضع رابط اللوجو الخاص بك هنا -->
-            <img src="images (26).jpeg" alt="لوجو المهرجان" class="w-32 h-32 object-contain mx-auto mb-4 drop-shadow-md rounded-full bg-white p-2">
+            <img src="IMG-20260801-WA0102.jpg" alt="لوجو المهرجان" class="w-32 h-32 object-contain mx-auto mb-4 drop-shadow-md rounded-full bg-white p-2">
             
             <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-2 tracking-tight">مهرجان الكرازة المرقسية</h1>
-            <p class="text-slate-500 font-medium text-lg">بوابة تسليم المشاريع الإلكترونية والأدبية والثقافية</p>
+            <p class="text-slate-500 font-medium text-lg">بوابة تسليم المشاريع الإلكترونية والأدبية والثقافية والإعلامية</p>
             
             <div class="h-1 w-20 bg-blue-500 rounded-full mx-auto mt-6"></div>
         </div>
@@ -106,6 +106,7 @@
                         <option value="comp1">المسابقة الإلكترونية</option>
                         <option value="comp2">المسابقة الأدبية</option>
                         <option value="comp3">المسابقة الثقافية</option>
+                        <option value="comp4">المسابقة الإعلامية</option>
                     </select>
                     <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
                         <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -140,7 +141,7 @@
 
     <script>
         // ⚠️ ضع رابط سكربت جوجل هنا ⚠️
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwOF1DF_H_KxUViHcd-oOmAynUPonNYGdzRK3rK0gvwwF8A8wlaNCezbBhDW-JOYgGg/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwS_UWUcu-d7RPu9r0fqRnIowYozxsPJy7ZlrkQ3ZO_RIXYPGeBkGMJMd44fxHImHUm/exec';
 
         const form = document.getElementById('uploadForm');
         const fileInput = document.getElementById('fileInput');
@@ -161,7 +162,7 @@
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            if (GOOGLE_SCRIPT_URL === 'ضع_رابط_سكربت_جوجل_هنا') {
+            if (GOOGLE_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwS_UWUcu-d7RPu9r0fqRnIowYozxsPJy7ZlrkQ3ZO_RIXYPGeBkGMJMd44fxHImHUm/exec') {
                 showStatus('⚠️ يرجى وضع رابط Google Apps Script في الكود أولاً!', 'error');
                 return;
             }
