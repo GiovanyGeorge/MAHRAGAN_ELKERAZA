@@ -3,93 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة تسليم المشاريع</title>
-    <!-- استخدام Tailwind CSS للتصميم السريع والشيك -->
+    <title>مهرجان الكرازة المرقسية | تسليم المشاريع</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            /* خلفية متدرجة فخمة */
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
         }
+        
+        /* تأثير النبض لزرار الرفع */
+        @keyframes pulse-border {
+            0% { border-color: #3b82f6; }
+            50% { border-color: #93c5fd; }
+            100% { border-color: #3b82f6; }
+        }
+        
+        .upload-area:hover {
+            animation: pulse-border 2s infinite;
+            background-color: #eff6ff;
+        }
+
         .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #ff7e5f;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #ffffff;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 20px;
+            height: 20px;
             animation: spin 1s linear infinite;
             display: inline-block;
         }
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
     </style>
 </head>
-<body class="flex items-center justify-center p-4">
+<body class="flex items-center justify-center p-4 sm:p-8">
 
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8">
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">بوابة تسليم المشاريع</h1>
-            <p class="text-gray-500">اختر المسابقة وقم برفع ملفك النهائي هنا</p>
+    <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-[0_20px_50px_rgba(8,_112,_184,_0.07)] w-full max-w-xl p-8 sm:p-10 border border-white">
+        
+        <div class="text-center mb-10">
+            <!-- ضع رابط اللوجو الخاص بك هنا -->
+            <img src="images (26).jpeg" alt="لوجو المهرجان" class="w-32 h-32 object-contain mx-auto mb-4 drop-shadow-md rounded-full bg-white p-2">
+            
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-2 tracking-tight">مهرجان الكرازة المرقسية</h1>
+            <p class="text-slate-500 font-medium text-lg">بوابة تسليم المشاريع الإلكترونية والأدبية والثقافية</p>
+            
+            <div class="h-1 w-20 bg-blue-500 rounded-full mx-auto mt-6"></div>
         </div>
 
-        <form id="uploadForm" class="space-y-5">
+        <form id="uploadForm" class="space-y-6">
             
-            <!-- اسم المتسابق -->
-            <div>
-                <label class="block text-gray-700 font-semibold mb-2">اسم المتسابق (أو الفريق)</label>
-                <input type="text" id="userName" required
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
-                    placeholder="اكتب اسمك الثلاثي">
-            </div>
-
-            <!-- اختيار المسابقة -->
-            <div>
-                <label class="block text-gray-700 font-semibold mb-2">المسابقة</label>
-                <select id="competition" required
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition bg-white">
-                    <option value="" disabled selected>-- اختر المسابقة --</option>
-                    <option value="comp1">المسابقة الالكترونية</option>
-                    <option value="comp2">المسابقة  الثقافية</option>
-                    <option value="comp3">المسابقة الادبية </option>
-                </select>
-            </div>
-
-            <!-- رفع الملف -->
-            <div>
-                <label class="block text-gray-700 font-semibold mb-2">ملف المشروع</label>
-                <div class="flex items-center justify-center w-full">
-                    <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition">
-                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                            <svg class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                            </svg>
-                            <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">اضغط لرفع الملف</span> أو اسحبه هنا</p>
-                            <p class="text-xs text-gray-500" id="fileNameDisplay">الحد الأقصى (يفضل أقل من 50MB لضمان السرعة)</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                    <label class="block text-slate-700 font-bold text-sm">اسم الكنيسة</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                         </div>
-                        <input id="fileInput" type="file" class="hidden" required />
-                    </label>
+                        <input type="text" id="churchName" required
+                            class="w-full pr-10 pl-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white text-slate-700"
+                            placeholder="اسم كنيستك والمنطقة">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-slate-700 font-bold text-sm">رقم التليفون (للتواصل)</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                        </div>
+                        <input type="tel" id="phoneNumber" required dir="ltr"
+                            class="w-full pr-10 pl-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white text-slate-700 text-right"
+                            placeholder="01xxxxxxxxx">
+                    </div>
                 </div>
             </div>
 
-            <!-- زر الإرسال -->
+            <div class="space-y-2">
+                <label class="block text-slate-700 font-bold text-sm">المسابقة المشارك بها</label>
+                <div class="relative">
+                    <select id="competition" required
+                        class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white text-slate-700 appearance-none cursor-pointer">
+                        <option value="" disabled selected>-- اضغط لاختيار المسابقة --</option>
+                        <option value="comp1">المسابقة الإلكترونية</option>
+                        <option value="comp2">المسابقة الأدبية</option>
+                        <option value="comp3">المسابقة الثقافية</option>
+                    </select>
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                        <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-2 pt-2">
+                <label class="block text-slate-700 font-bold text-sm">ملف المشروع</label>
+                <label class="upload-area flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-slate-300 rounded-2xl cursor-pointer bg-slate-50 transition-all duration-300 group">
+                    <div class="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
+                        <div class="bg-blue-100 p-3 rounded-full mb-3 group-hover:bg-blue-200 transition-colors">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                        </div>
+                        <p class="mb-1 text-sm text-slate-600"><span class="font-bold text-blue-600">اضغط لرفع الملف</span> أو اسحبه وأفلته هنا</p>
+                        <p class="text-xs text-slate-400 mt-2" id="fileNameDisplay">الحد الأقصى (يفضل أقل من 50MB لسرعة الرفع)</p>
+                    </div>
+                    <input id="fileInput" type="file" class="hidden" required />
+                </label>
+            </div>
+
             <button type="submit" id="submitBtn"
-                class="w-full bg-gradient-to-r from-orange-400 to-red-500 text-white font-bold py-3 px-4 rounded-lg hover:from-orange-500 hover:to-red-600 focus:outline-none focus:ring-4 focus:ring-orange-300 transition-all flex justify-center items-center gap-2">
-                <span>إرسال الملف</span>
+                class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-lg py-4 px-6 rounded-xl hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all transform hover:-translate-y-1 shadow-lg flex justify-center items-center gap-3 mt-4">
+                <span>إرسال المشروع</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
             </button>
 
-            <!-- رسائل الحالة -->
-            <div id="statusMessage" class="hidden text-center font-bold py-2 rounded-lg"></div>
+            <div id="statusMessage" class="hidden text-center font-bold py-3 px-4 rounded-xl text-sm transition-all"></div>
 
         </form>
     </div>
 
     <script>
-        // رابط الـ Web App اللي هنجيبه من Google Apps Script (هنحطه هنا بعدين)
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyk9-vMOuIH7lJVH50u4CAbnjJBlVg33B84i4sV51ifcovvqnnoQiCDmxCo3fxlwWXg/exec';
+        // ⚠️ ضع رابط سكربت جوجل هنا ⚠️
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytt40cRRxz5WSrG0RD3m4kzmyLqRuPYUQI7JPOI-JQH6ChfcFOdVC3iR1NoVh76QPC/exec';
 
         const form = document.getElementById('uploadForm');
         const fileInput = document.getElementById('fileInput');
@@ -97,11 +135,13 @@
         const submitBtn = document.getElementById('submitBtn');
         const statusMessage = document.getElementById('statusMessage');
 
-        // عرض اسم الملف عند اختياره
+        // تحديث اسم الملف عند الاختيار
         fileInput.addEventListener('change', function(e) {
             if (e.target.files.length > 0) {
-                fileNameDisplay.textContent = e.target.files[0].name;
-                fileNameDisplay.classList.add('text-orange-500', 'font-bold');
+                const fileName = e.target.files[0].name;
+                fileNameDisplay.innerHTML = `<span class="text-blue-600 font-bold bg-blue-50 px-3 py-1 rounded-full border border-blue-100 flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> ${fileName}</span>`;
+            } else {
+                fileNameDisplay.textContent = 'الحد الأقصى (يفضل أقل من 50MB لسرعة الرفع)';
             }
         });
 
@@ -109,28 +149,32 @@
             e.preventDefault();
 
             if (GOOGLE_SCRIPT_URL === 'ضع_رابط_سكربت_جوجل_هنا') {
-                showStatus('يرجى وضع رابط Google Apps Script في الكود أولاً!', 'error');
+                showStatus('⚠️ يرجى وضع رابط Google Apps Script في الكود أولاً!', 'error');
                 return;
             }
 
             const file = fileInput.files[0];
-            const userName = document.getElementById('userName').value;
+            const churchName = document.getElementById('churchName').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
             const competition = document.getElementById('competition').value;
 
             if (!file) return;
 
-            // تغيير حالة الزر أثناء التحميل
+            // تغيير حالة الزر
+            const originalBtnContent = submitBtn.innerHTML;
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<div class="loader"></div> <span class="mr-2">جاري الرفع... يرجى الانتظار</span>';
+            submitBtn.classList.remove('hover:-translate-y-1', 'hover:from-blue-700');
+            submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
+            submitBtn.innerHTML = '<div class="loader"></div> <span>جاري رفع المشروع... يرجى الانتظار</span>';
             hideStatus();
 
-            // قراءة الملف وتحويله إلى Base64
             const reader = new FileReader();
             reader.onload = async function() {
                 const base64Data = reader.result.split(',')[1];
                 
                 const payload = {
-                    name: userName,
+                    churchName: churchName,
+                    phoneNumber: phoneNumber,
                     competition: competition,
                     fileName: file.name,
                     mimeType: file.type,
@@ -138,10 +182,8 @@
                 };
 
                 try {
-                    // إرسال البيانات إلى جوجل
                     const response = await fetch(GOOGLE_SCRIPT_URL, {
                         method: 'POST',
-                        // نستخدم text/plain لتجنب مشاكل الـ CORS مع جوجل
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify(payload)
                     });
@@ -149,35 +191,37 @@
                     const result = await response.json();
                     
                     if(result.status === 'success') {
-                        showStatus('تم رفع الملف بنجاح! شكراً لك.', 'success');
+                        showStatus('🎉 تم رفع مشروعك بنجاح! الرب يبارك خدمتك.', 'success');
                         form.reset();
-                        fileNameDisplay.textContent = 'الحد الأقصى (يفضل أقل من 50MB لضمان السرعة)';
-                        fileNameDisplay.classList.remove('text-orange-500', 'font-bold');
+                        fileNameDisplay.textContent = 'الحد الأقصى (يفضل أقل من 50MB لسرعة الرفع)';
                     } else {
-                        showStatus('حدث خطأ أثناء الرفع، حاول مرة أخرى.', 'error');
+                        showStatus('❌ حدث خطأ أثناء الرفع، حاول مرة أخرى.', 'error');
                     }
                 } catch (error) {
-                    showStatus('حدث خطأ في الاتصال بالخادم.', 'error');
+                    showStatus('❌ حدث خطأ في الاتصال، تأكد من الإنترنت وحاول مجدداً.', 'error');
                     console.error(error);
                 } finally {
-                    // إعادة الزر لحالته الطبيعية
+                    // إرجاع الزر لحالته
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<span>إرسال الملف</span>';
+                    submitBtn.classList.add('hover:-translate-y-1', 'hover:from-blue-700');
+                    submitBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+                    submitBtn.innerHTML = originalBtnContent;
                 }
             };
             
-            // بدء قراءة الملف
             reader.readAsDataURL(file);
         });
 
         function showStatus(message, type) {
-            statusMessage.textContent = message;
-            statusMessage.classList.remove('hidden', 'bg-green-100', 'text-green-700', 'bg-red-100', 'text-red-700');
+            statusMessage.innerHTML = message;
+            statusMessage.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-700', 'border-emerald-200', 'bg-red-100', 'text-red-700', 'border-red-200');
+            
             if(type === 'success') {
-                statusMessage.classList.add('bg-green-100', 'text-green-700');
+                statusMessage.classList.add('bg-emerald-50', 'text-emerald-700', 'border', 'border-emerald-200');
             } else {
-                statusMessage.classList.add('bg-red-100', 'text-red-700');
+                statusMessage.classList.add('bg-red-50', 'text-red-700', 'border', 'border-red-200');
             }
+            
             statusMessage.classList.add('block');
         }
 
